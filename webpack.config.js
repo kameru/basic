@@ -24,7 +24,7 @@ module.exports = ( env, options ) => {
 					use: {
 						loader: 'babel-loader',
 						options: {
-							presets: ['@babel/preset-env'],
+							presets: ['@babel/preset-env', '@babel/preset-react'],
 						}
 					},
 					exclude: /node_modules/
@@ -56,6 +56,12 @@ module.exports = ( env, options ) => {
 					]
 				},
 			],
+		},
+		resolve: {
+			modules: [
+				path.resolve(__dirname),
+				'node_modules'
+			]
 		},
 		plugins: [new HtmlWebpackPlugin({
 			template: 'index.html'
