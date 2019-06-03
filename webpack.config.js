@@ -4,31 +4,29 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = ( env, options ) => {
 	return {
 		entry: [
+			'@babel/polyfill',
 			'./src/index.js',
-			'webpack-dev-server/client?http://localhost:3000'
+			'webpack-dev-server/client?http://localhost:4000'
 		],
 		output: {
 			path: path.resolve( __dirname, 'dist' ),
 			filename: 'bundle.js',
 		},
 
-		devtool: 'cheap-eval-source-map',
+		devtool: 'inline-source-map',
 		devServer: {
 			hotOnly: true,
-			port: 3000
+			port: 4000,
+			host: '0.0.0.0'
 		},
 		module: {
 			rules: [
 				{
 					test: /\.jsx$|\.js$/,
 					use: {
-						loader: 'babel-loader',
-						options: {
-							presets: ['@babel/preset-env', '@babel/preset-react'],
-							plugins: ['react-hot-loader/babel']
-						}
+						loader: 'babel-loader'
 					},
-					exclude: /node_modules/
+					exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
 				},
 				{
 					test: /\.css$/,
